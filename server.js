@@ -1,5 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
-
+const fs = require('fs');
 // Введите свой токен, полученный от BotFather
 const token = '***';
 
@@ -69,19 +69,20 @@ bot.onText(/\/start/, (msg) => {
       switch (category) {
         case 'Груминг салоны':
           // Категория 1 выбрана, добавляем кнопки для выбора подкатегории
-          bot.sendMessage(msg.chat.id, "Выберите подкатегорию:", {
-            reply_markup: {
-              keyboard: [
-                ['Подкатегория 1.1', 'Подкатегория 1.2'],
-                ['Назад'],
-              ],
-              resize_keyboard: true,
-              one_time_keyboard: true,
-            }
-          }).then(() => {
-            // Добавляем обработчик для ответа на выбор подкатегории
-            bot.once('message', handleSubcategorySelection);
-          });
+          fs.readFile('groomings.json', 'utf8', (err, data) => {
+            if (err) {
+              console.error(err);
+              bot.sendMessage(msg.chat.id, "Произошла ошибка при чтении данных.");
+            } else {
+              const jsonData = JSON.parse(data);
+              const categoryData = jsonData;
+              let message = `Груминг салоны\n`;
+              for (const item of categoryData) {
+                message += `(${item.city}) | ${item.name}: ${item.address}\nСсылка на 2ГИС: ${item.double_gis}\n\n`;
+              }
+              bot.sendMessage(msg.chat.id, message);
+            }});
+
           break;
   
         case 'Категория 2':

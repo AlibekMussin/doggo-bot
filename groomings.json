@@ -1,0 +1,58 @@
+[
+    {
+        "city":"Almaty",
+        "double_gis":"https://2gis.kz/almaty/firm/70000001062664851",
+        "address":"Улица Шагабутдинова, 103",
+        "name":"Стриж",
+        "description":"​Зоосалон"
+    },
+    {
+        "city":"Almaty",
+        "double_gis":"https://2gis.kz/almaty/firm/70000001053489038",
+        "address":"​Улица Богенбай батыра, 64​1 этаж",
+        "name":"ART Groom",
+        "description":"Груминг от профессионалов — позаботимся о вашем любимце!"
+    },
+    {
+        "city":"Almaty",
+        "double_gis":"https://2gis.kz/almaty/firm/9429940001055732",
+        "address":"​Улица Желтоксан, 19​1 этаж",
+        "name":"НАШ ЧЕМПИОН",
+        "description":"​Зоосалон"
+    },
+    {
+        "city":"Almaty",
+        "double_gis":"https://2gis.kz/almaty/firm/70000001018549661",
+        "address":"ЖК Береке​Улица Богенбай батыра, 279​1 этаж",
+        "name":"Salon de beaute",
+        "description":"​Зоосалон"
+    },
+    {
+        "city":"Almaty",
+        "double_gis":"https://2gis.kz/almaty/firm/70000001057770864",
+        "address":"ЖК Комфорт​Проспект Гагарина, 309​352а помещение; 1 этаж​",
+        "name":"Comfort For Dog",
+        "description":"​Груминг-салон"
+    },
+    {
+        "city":"Almaty",
+        "double_gis":"https://2gis.kz/almaty/firm/70000001041922237",
+        "address":"Улица Маркова, 39​1 этаж",
+        "name":"Alpha-dog",
+        "description":"Кинологическое агентство + ​Груминг-салон"
+    },
+    {
+        "city":"Astana",
+        "double_gis":"https://2gis.kz/astana/firm/70000001039012471",
+        "address":"Улица Касым Аманжолов, 24​",
+        "name":"Black Orange",
+        "description":"​Салон красоты для животных"
+    },
+    {
+        "city":"Astana",
+        "double_gis":"https://2gis.kz/astana/firm/70000001027284308",
+        "address":"Проспект Кабанбай батыр, 40​, цокольный этаж​",
+        "name":"Патрик",
+        "description":"​Магазин товаров для животных + груминг"
+    }
+]
