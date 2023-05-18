@@ -8,7 +8,6 @@ const bot = new TelegramBot(token, {polling: true});
 const webAppUrl = process.env.APP_URL;
 const app = express();
 
-
 app.use(express.json());
 app.use(cors())
 bot.on('message', async (msg) => {
@@ -16,17 +15,7 @@ bot.on('message', async (msg) => {
   const text = msg.text;
 
   if (text == '/start')
-  {
-    await bot.sendMessage(chatId, 'Заполните форму ниже', {
-      
-      reply_markup:{
-        keyboard: [
-          [{text: "Заполнить форму", web_app:{
-            url: webAppUrl + '/form'}}]
-        ]
-      }
-    });
-
+  {    
     await bot.sendMessage(chatId, 'Нажмите на кнопку Меню и выберите раздел, который вам нужен', {
       reply_markup:{
         inline_keyboard: [
@@ -77,6 +66,6 @@ app.post('/web-data', async (req, res) => {
   }
 })
 
-const PORT = 8009;
+const PORT = process.env.APP_PORT;
 
 app.listen(PORT, () => console.log('server started on PORT ' + PORT))
