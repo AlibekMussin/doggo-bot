@@ -57,7 +57,10 @@ bot.on('message', async (msg) => {
 });
 
 app.post('/web-data', async (req, res) => {
+  console.log('1111');
+  console.log(req.body);
   const {queryId, products = [], totalPrice} = req.body;
+  console.log(queryId);
   try {
       await bot.answerWebAppQuery(queryId, {
           type: 'article',
@@ -69,8 +72,8 @@ app.post('/web-data', async (req, res) => {
       })
       return res.status(200).json({});
   } catch (e) {
-      return e;
-      return res.status(500).json({})
+    console.error(e);
+    return res.status(500).json({})
   }
 })
 
