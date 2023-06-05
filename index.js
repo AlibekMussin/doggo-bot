@@ -6,57 +6,52 @@ const cors = require('cors');
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
 const webAppUrl = process.env.APP_URL;
+
 const app = express();
 
 app.use(express.json());
-app.use(cors())
+app.use(cors());
+
 bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
   const text = msg.text;
 
   if (text == '/start')
-  {    
-    await bot.sendMessage(chatId, 'Нажмите на кнопку Меню и выберите раздел, который вам нужен', {
+  {
+    await bot.sendMessage(chatId, 'Нажмите на кнопку Каталог товаров и выберите товары, которые вам нужны', {
       reply_markup:{
         inline_keyboard: [
-          [{text: "Меню", web_app:{url: webAppUrl }}]
+          [{text: "Каталог товаров", web_app:{url: webAppUrl }}]
         ]
       }
     });    
   }
-
-  
-    if (msg?.web_app_data?.data)
-    {
-      try {
-        const data = JSON.parse(msg?.web_app_data?.data);
-        console.log(data);
-        await bot.sendMessage(chatId, 'Data accepted: ' + data?.country+ ', '+ data?.street+ ', '+ data?.subject);
-        setTimeout(async()=>{
-          await bot.sendMessage(chatId, 'Инфа в этом чате будет')
-        }, 3000);
-
-      }
-      catch (e){
-        console.log(e);
-
-      }
-      
-    }
 });
 
-app.post('/web-data', async (req, res) => {
-  console.log('1111');
+app.post('/make-order', async (req, res) => {  
   console.log(req.body);
-  const {queryId, products = [], totalPrice} = req.body;
+  const {queryId, title, text, number, payment, products, token, total, delivery } = req.body;
   console.log(queryId);
+  console.log('products', products);
+  
+  const message_products = products.map((product) => {
+    return `${product.product_name}, кол-во: ${product.products_count}, стоимость: ${product.common_price} тнг.`;
+  }).join('\n');
+  let  message_delivery = '';
+  if (delivery>0)
+  {
+    message_delivery = ' (В том числе доставка: '+delivery+' тнг.)';
+  }
+  const message_total = '\n\nОбщая стоимость: '+total+' тнг'+message_delivery;
+
   try {
+    const message_text = title+'\n\nВы приобретаете:\n'+message_products+message_total+'\n\n'+text+'\n'+number+'\n'+payment;
       await bot.answerWebAppQuery(queryId, {
           type: 'article',
           id: queryId,
           title: 'Успешная покупка',
           input_message_content: {
-              message_text: ` Поздравляю с покупкой, вы приобрели товар на сумму ${totalPrice}, ${products.map(item => item.title).join(', ')}`
+              message_text: message_text
           }
       })
       return res.status(200).json({});
