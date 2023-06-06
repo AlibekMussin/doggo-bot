@@ -30,7 +30,7 @@ bot.on('message', async (msg) => {
 
 app.post('/make-order', async (req, res) => {  
   console.log(req.body);
-  const {queryId, order } = req.body;
+  const {queryId, order , products} = req.body;
   console.log(queryId);
   console.log('products', products);
   
