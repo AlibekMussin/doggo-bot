@@ -37,7 +37,7 @@ app.post('/make-order', async (req, res) => {
   const message_products = products.map((product) => {
     return `${product.attributes.title}, стоимость: ${product.attributes.price} тнг.`;
   }).join('\n');
-  const title = 'Вы успешно совершили заказ в нашем магазине. Наш менеджер в ближайшее время свжяется с вами\n\nНомер вашего заказа: '+order;
+  const title = 'Вы успешно совершили заказ в нашем магазине. Наш менеджер в ближайшее время свяжется с вами\n\nНомер вашего заказа: '+order;
   const text = '';
   
   try {
