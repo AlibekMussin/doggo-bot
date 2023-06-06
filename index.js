@@ -30,22 +30,18 @@ bot.on('message', async (msg) => {
 
 app.post('/make-order', async (req, res) => {  
   console.log(req.body);
-  const {queryId, title, text, number, payment, products, token, total, delivery } = req.body;
+  const {queryId, order } = req.body;
   console.log(queryId);
   console.log('products', products);
   
   const message_products = products.map((product) => {
-    return `${product.product_name}, кол-во: ${product.products_count}, стоимость: ${product.common_price} тнг.`;
+    return `${product.attributes.title}, стоимость: ${product.attributes.price} тнг.`;
   }).join('\n');
-  let  message_delivery = '';
-  if (delivery>0)
-  {
-    message_delivery = ' (В том числе доставка: '+delivery+' тнг.)';
-  }
-  const message_total = '\n\nОбщая стоимость: '+total+' тнг'+message_delivery;
-
+  const title = 'Вы успешно совершили заказ в нашем магазине. Наш менеджер в ближайшее время свжяется с вами\n\nНомер вашего заказа: '+order;
+  const text = '';
+  
   try {
-    const message_text = title+'\n\nВы приобретаете:\n'+message_products+message_total+'\n\n'+text+'\n'+number+'\n'+payment;
+    const message_text = title+'\n\nВы приобретаете:\n'+message_products+'\n\n'+text;
       await bot.answerWebAppQuery(queryId, {
           type: 'article',
           id: queryId,
