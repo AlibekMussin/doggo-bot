@@ -34,6 +34,7 @@ bot.on('message', async (msg) => {
 
 app.post('/make-order', async (req, res) => {  
   console.log(req.body);
+  const { last_name, first_name, phone_number, queryId, order , products} = req.body;
   const {queryId, order , products} = req.body;
   console.log(queryId);
   console.log('products', products);
@@ -62,8 +63,7 @@ app.post('/make-order', async (req, res) => {
       const notificationText = 'Внимание! Новый заказ '+order+':\n\n'+message_products+'\n\n'+customer_data;
       console.log("notificationText", notificationText);
       const params = { chat_id: notifChatId, text: notificationText, parse_mode: 'HTML'};  
-      console.log(params);
-      
+      console.log(params);      
       axios.post(urlTg, null, { params, httpsAgent: agent })
       .then((response) => {
         console.log('Сообщение успешно отправлено!');
