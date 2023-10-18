@@ -35,7 +35,6 @@ bot.on('message', async (msg) => {
 app.post('/make-order', async (req, res) => {  
   console.log(req.body);
   const { last_name, first_name, phone_number, queryId, order , products} = req.body;
-  const {queryId, order , products} = req.body;
   console.log(queryId);
   console.log('products', products);
   let commonTotal = 0;
