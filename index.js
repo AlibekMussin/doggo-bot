@@ -9,6 +9,7 @@ const webAppUrl = process.env.APP_URL;
 const notifChatId = process.env.NOTIFICATIONS_CHAT_ID;
 
 const app = express();
+const urlTg = `https://api.telegram.org/bot${token}/sendMessage`;
 
 app.use(express.json());
 app.use(cors());
@@ -59,7 +60,9 @@ app.post('/make-order', async (req, res) => {
       
       const customer_data = 'Данные покупателя: \nФамилия: '+last_name+'\nИмя: '+first_name+'\nТелефон: '+phone_number;
       const notificationText = 'Внимание! Новый заказ '+order+':\n\n'+message_products+'\n\n'+customer_data;
+      console.log("notificationText", notificationText);
       const params = { chat_id: notifChatId, text: notificationText, parse_mode: 'HTML'};  
+      console.log(params);
       
       axios.post(urlTg, null, { params, httpsAgent: agent })
       .then((response) => {
