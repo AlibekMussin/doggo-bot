@@ -12,6 +12,10 @@ const notifChatId = process.env.NOTIFICATIONS_CHAT_ID;
 const app = express();
 const urlTg = `https://api.telegram.org/bot${token}/sendMessage`;
 
+const agent = new https.Agent({
+  rejectUnauthorized: false  // Отключение проверки сертификата SSL
+});
+
 app.use(express.json());
 app.use(cors());
 
