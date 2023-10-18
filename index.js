@@ -6,6 +6,7 @@ const cors = require('cors');
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
 const webAppUrl = process.env.APP_URL;
+const notifChatId = process.env.NOTIFICATIONS_CHAT_ID;
 
 const app = express();
 
@@ -54,7 +55,20 @@ app.post('/make-order', async (req, res) => {
           input_message_content: {
               message_text: message_text
           }
+      });
+      
+      const customer_data = 'Данные покупателя: \nФамилия: '+last_name+'\nИмя: '+first_name+'\nТелефон: '+phone_number;
+      const notificationText = 'Внимание! Новый заказ '+order+':\n\n'+message_products+'\n\n'+customer_data;
+      const params = { chat_id: notifChatId, text: notificationText, parse_mode: 'HTML'};  
+      
+      axios.post(urlTg, null, { params, httpsAgent: agent })
+      .then((response) => {
+        console.log('Сообщение успешно отправлено!');
       })
+      .catch((error) => {
+        console.error('Произошла ошибка при отправке сообщения:', error);
+      });
+
       return res.status(200).json({});
   } catch (e) {
     console.error(e);
