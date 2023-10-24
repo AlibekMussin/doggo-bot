@@ -65,7 +65,7 @@ app.post('/make-order', async (req, res) => {
       });
       
       const customer_data = 'Данные покупателя: \nФамилия: <b>'+last_name+'</b>\nИмя: <b>'+first_name+'</b>\nТелефон: <b>'+phone_number+'</b>';
-      const notificationText = 'Внимание! Новый заказ <b>'+order+'</b>:\n\n'+message_products+'\n\nОбщая стоимость: '+commonTotal+' тнг'+customer_data;
+      const notificationText = 'Внимание! Новый заказ <b>'+order+'</b>:\n\n'+message_products+'\n\nОбщая стоимость: '+commonTotal+' тнг\n\n'+customer_data;
       console.log("notificationText", notificationText);
       const params = { chat_id: notifChatId, text: notificationText, parse_mode: 'HTML'};  
       console.log(params);      
